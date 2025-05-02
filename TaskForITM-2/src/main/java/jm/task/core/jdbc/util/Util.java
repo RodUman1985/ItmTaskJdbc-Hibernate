@@ -8,7 +8,7 @@ import java.util.Properties;
 
 public class Util {
     // реализуйте настройку соеденения с БД
-    private static final String PROPERTIES_FILE = "db.properties";
+   /* private static final String PROPERTIES_FILE = "db.properties";
     private static Connection connection ;
     private static Util instanse = null;
 
@@ -47,6 +47,6 @@ public class Util {
 
     public static Connection getConnection() {
         return connection;
-    }
+    }*/
 
 }
