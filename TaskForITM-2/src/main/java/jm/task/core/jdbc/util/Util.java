@@ -8,30 +8,17 @@ import java.util.Properties;
 
 public class Util {
     // реализуйте настройку соеденения с БД
-   /* private static final String PROPERTIES_FILE = "db.properties";
-    private static Connection connection ;
-    private static Util instanse = null;
+    private static final String PROPERTIES_FILE = "db.properties";
+    private static Connection connection;
+    private static Util instanse;
+    private static Properties properties;
 
-    private Util() {
-        try {
-            if (connection == null || connection.isClosed()) {
-
-                Properties prop = new Properties();
-
-                prop.load(Util.class.getClassLoader().getResourceAsStream(PROPERTIES_FILE));
-                Class.forName(prop.getProperty("db.driver"));
-                connection = DriverManager.getConnection(
-                        prop.getProperty("db.url"),
-                        prop.getProperty("db.username"),
-                        prop.getProperty("db.password"));
-            }
-
-        } catch (IOException | SQLException | RuntimeException|ClassNotFoundException e) {
-            e.printStackTrace();
-
-
-        }
+    public Util() {
+        properties = getProperties();
+        initConnection();
     }
+
+
 
     public static Util getInstance() {
         if (instanse == null) {
@@ -41,12 +28,43 @@ public class Util {
                 }
             }
         }
-
         return instanse;
     }
 
-    public static Connection getConnection() {
-        return connection;
-    }*/
+    private static void initConnection() {
+        try {
+            Class.forName(properties.getProperty("db.driver"));
+            connection = DriverManager.getConnection(
+                    properties.getProperty("db.url"),
+                    properties.getProperty("db.username"),
+                    properties.getProperty("db.password"));
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new RuntimeException(e);
+        }
 
+    }
+
+    public static Connection getConnection() {
+        try {
+            if (connection == null || connection.isClosed()) {
+                initConnection();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Ошибка при подключении к базе данных");
+        }
+        return connection;
+    }
+
+
+    private static Properties getProperties() {
+        Properties properties = new Properties();
+        try {
+            properties.load(Util.class.getClassLoader().getResourceAsStream(PROPERTIES_FILE));
+        } catch (IOException e) {
+            throw new RuntimeException("Ошибка при загрузке свойств", e);
+
+        }
+        return properties;
+
+    }
 }
