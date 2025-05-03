@@ -15,7 +15,10 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void createUsersTable() {
-        String sql = "CREATE TABLE IF NOT EXISTS users (id BIGSERIAL PRIMARY KEY,name VARCHAR(255),last_name VARCHAR(255),age INT)";
+        String sql = "CREATE TABLE IF NOT EXISTS users (id BIGSERIAL PRIMARY KEY," +
+                "name VARCHAR(255)," +
+                "last_name VARCHAR(255)," +
+                "age INT)";
         String resetSequence = "ALTER SEQUENCE users_id_seq RESTART WITH 1";
         try (Statement stmt = connection.createStatement()) {
             stmt.executeUpdate(sql);

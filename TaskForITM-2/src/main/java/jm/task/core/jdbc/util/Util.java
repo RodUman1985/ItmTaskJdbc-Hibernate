@@ -14,7 +14,7 @@ public class Util {
     // реализуйте настройку соеденения с БД
     private static final String PROPERTIES_FILE = "db.properties";
     private static Connection connection;
-    private static Util instanse;
+    private static Util instanse=null;
     private static Properties properties;
     private static SessionFactory sessionFactory;
 
@@ -61,15 +61,15 @@ public class Util {
     }
 
 
-public static SessionFactory getSessionFactory() {
+public SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
              try {
                  Configuration config = new Configuration()
                          .setProperty("hibernate.connection.url", properties.getProperty("db.url"))
                          .setProperty("hibernate.connection.username", properties.getProperty("db.username"))
                          .setProperty("hibernate.connection.password", properties.getProperty("db.password"))
-                         .setProperty("hibernate.dialect", properties.getProperty("db.driver"))
-                         .setProperty("hibernate.hbm2ddl.auto", properties.getProperty("db.hbm2ddl"))
+                         .setProperty("hibernate.dialect", properties.getProperty("db.hibernate.dialect"))
+                         .setProperty("hibernate.hbm2ddl.auto", properties.getProperty("db.hibernate.hbm2ddl"))
                          .addAnnotatedClass(User.class);
                  sessionFactory = config.buildSessionFactory();
              } catch (Exception e) {
