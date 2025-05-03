@@ -9,20 +9,29 @@ import java.util.List;
 
 public class UserServiceImpl implements UserService {
     //UserDao userDao = new UserDaoJDBCImpl();
-    UserDao userDao = new UserDaoHibernateImpl();
+    // UserDao userDao = new UserDaoHibernateImpl();
+    UserDao userDao = getUserDao(true);
+
+    private UserDao getUserDao(boolean isHibernate) {
+        if (isHibernate) {
+            return new UserDaoHibernateImpl();
+        } else {
+            return new UserDaoJDBCImpl();
+        }
+    }
 
     public void createUsersTable() {
-            userDao.createUsersTable();
+        userDao.createUsersTable();
         System.out.println("Users table created");
     }
 
     public void dropUsersTable() {
-          userDao.dropUsersTable();
-          System.out.println("Users table dropped");
+        userDao.dropUsersTable();
+        System.out.println("Users table dropped");
     }
 
     public void saveUser(String name, String lastName, byte age) {
-      userDao.saveUser(name, lastName, age);
+        userDao.saveUser(name, lastName, age);
         System.out.println("User " + name + " saved");
     }
 

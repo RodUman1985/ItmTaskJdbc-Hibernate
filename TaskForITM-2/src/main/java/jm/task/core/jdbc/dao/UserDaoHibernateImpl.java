@@ -27,6 +27,7 @@ public class UserDaoHibernateImpl implements UserDao {
         try (Session session = sessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
             session.createSQLQuery(sql).executeUpdate();
+            System.out.println("таблица созданна с помощью Hibernate");
             tx.commit();
         } catch (Exception e) {
             e.printStackTrace();
@@ -41,6 +42,7 @@ public class UserDaoHibernateImpl implements UserDao {
         try (Session session = sessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
             session.createSQLQuery(sql).executeUpdate();
+            System.out.println("таблица удалена с помощью Hibernate");
             tx.commit();
         } catch (Exception e) {
             e.printStackTrace();
