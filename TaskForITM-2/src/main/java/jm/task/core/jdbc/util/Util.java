@@ -14,13 +14,14 @@ public class Util {
     // реализуйте настройку соеденения с БД
     private static final String PROPERTIES_FILE = "db.properties";
     private static Connection connection;
-    private static Util instanse=null;
+    private static Util instanse;
     private static Properties properties;
     private static SessionFactory sessionFactory;
 
     public Util() {
         properties = getProperties();
-        initConnection();
+        //initConnection();
+        getConnection();
     }
 
 
