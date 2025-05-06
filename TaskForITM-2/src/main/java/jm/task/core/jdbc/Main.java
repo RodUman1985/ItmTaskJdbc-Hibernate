@@ -8,7 +8,6 @@ public class Main {
         UserService userService = new UserServiceImpl();
 
         userService.createUsersTable();
-       userService.cleanUsersTable();
         userService.saveUser("Корвус", "Коракс", (byte) 120);
         userService.saveUser("Рогал", "Дорн", (byte) 120);
         userService.saveUser("Кайафас", "Каин", (byte) 105);
@@ -16,8 +15,8 @@ public class Main {
         userService.getAllUsers();
         userService.removeUserById(2);
         userService.getAllUsers();
-       userService.cleanUsersTable();
-       userService.dropUsersTable();
+        userService.cleanUsersTable();
+        userService.dropUsersTable();
 
     }
 }

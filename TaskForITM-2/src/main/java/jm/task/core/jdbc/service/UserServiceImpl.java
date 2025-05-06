@@ -9,7 +9,7 @@ import java.util.List;
 
 public class UserServiceImpl implements UserService {
 //параметр true - hibernate параметр false - jdbc
-    UserDao userDao = getUserDao(true);
+    UserDao userDao = getUserDao(false);
 
     private UserDao getUserDao(boolean isHibernate) {
         if (isHibernate) {

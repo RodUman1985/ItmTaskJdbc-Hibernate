@@ -53,6 +53,10 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void saveUser(String name, String lastName, byte age) {
+        if (name == null || lastName == null || age < 0) {
+            throw new IllegalArgumentException("Некорректные входящие данные. Возраст не можеь быть меньше нуля," +
+                    " а имя и фамилия не олжны быть пустыми");
+        }
         User user = new User(name, lastName, age);
         try (Session session = sessionFactory.openSession()) {
             Transaction tx = session.beginTransaction();
